@@ -16,7 +16,7 @@ class OnboardinScreen extends StatefulWidget {
 
 class _OnboardinScreenState extends State<OnboardinScreen> {
   final PageController _controller = PageController();
-  bool showdetailpage=false;
+  bool showdetailpage = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _OnboardinScreenState extends State<OnboardinScreen> {
                   controller: _controller,
                   onPageChanged: (Index) {
                     setState(() {
-                      showdetailpage=Index==3;
+                      showdetailpage = Index == 3;
                     });
                   },
                   children: [
@@ -70,22 +70,34 @@ class _OnboardinScreenState extends State<OnboardinScreen> {
                   bottom: 76,
                   left: 20,
                   right: 30,
-                  child:!showdetailpage? GestureDetector(
-                    onTap: () {
-                      _controller.animateToPage(
-                        _controller.page!.toInt() +1,
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut
-                      );
-                    },
-                    child: CustomButton(title:!showdetailpage?"next":"Get started", color: kMainColor),
-                  ):
-                   GestureDetector(
-                    onTap: () {
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDataScreens()));
-                    },
-                    child: CustomButton(title:!showdetailpage?"next":"Get started", color: kMainColor),
-                  )
+                  child: !showdetailpage
+                      ? GestureDetector(
+                          onTap: () {
+                            _controller.animateToPage(
+                              _controller.page!.toInt() + 1,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                          child: CustomButton(
+                            title: !showdetailpage ? "next" : "Get started",
+                            color: kMainColor,
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UserDataScreens(),
+                              ),
+                            );
+                          },
+                          child: CustomButton(
+                            title: !showdetailpage ? "next" : "Get started",
+                            color: kMainColor,
+                          ),
+                        ),
                 ),
               ],
             ),
