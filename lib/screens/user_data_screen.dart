@@ -1,3 +1,5 @@
+import 'package:expenz/screens/main_screen.dart';
+import 'package:expenz/screens/user_services.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widget/custom_button.dart';
@@ -166,14 +168,16 @@ class _UserDataScreensState extends State<UserDataScreens> {
                       ),
                       SizedBox(height: 67),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async{
                           if(_formkey.currentState!.validate()){
                             String username =_userNameController.text;
                             String email =_userEmailController.text;
                             String password =_userPassworController.text;
                             String confirmpasword =_confirmPaaswordController.text;
 
-                            print("$username $email $password $confirmpasword");
+                            await UserServices.storeUserDetails(username, email, password, confirmpasword, context);
+
+                           if(context.mounted) {Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen()));}
                           }
                         },
                         child:
