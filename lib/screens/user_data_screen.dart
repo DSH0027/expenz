@@ -23,7 +23,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
   final TextEditingController _confirmPaaswordController =
       TextEditingController();
 
-      @override
+  @override
   void dispose() {
     _userNameController.dispose();
     _confirmPaaswordController.dispose();
@@ -31,6 +31,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
     _userEmailController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -168,21 +169,33 @@ class _UserDataScreensState extends State<UserDataScreens> {
                       ),
                       SizedBox(height: 67),
                       GestureDetector(
-                        onTap: () async{
-                          if(_formkey.currentState!.validate()){
-                            String username =_userNameController.text;
-                            String email =_userEmailController.text;
-                            String password =_userPassworController.text;
-                            String confirmpasword =_confirmPaaswordController.text;
+                        onTap: () async {
+                          if (_formkey.currentState!.validate()) {
+                            String username = _userNameController.text;
+                            String email = _userEmailController.text;
+                            String password = _userPassworController.text;
+                            String confirmpasword =
+                                _confirmPaaswordController.text;
 
-                            await UserServices.storeUserDetails(username, email, password, confirmpasword, context);
+                            await UserServices.storeUserDetails(
+                              username,
+                              email,
+                              password,
+                              confirmpasword,
+                              context,
+                            );
 
-                           if(context.mounted) {Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen()));}
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MainScreen(),
+                                ),
+                              );
+                            }
                           }
                         },
-                        child:
-
-                        CustomButton(title: "Next", color: kMainColor),
+                        child: CustomButton(title: "Next", color: kMainColor),
                       ),
                     ],
                   ),
