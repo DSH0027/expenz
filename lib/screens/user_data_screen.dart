@@ -1,5 +1,5 @@
 import 'package:expenz/screens/main_screen.dart';
-import 'package:expenz/screens/user_services.dart';
+import 'package:expenz/services/user_services.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widget/custom_button.dart';
@@ -58,6 +58,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
                           if (value!.isEmpty) {
                             return "Please Enter Your Name";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Name",
@@ -80,6 +81,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
                           if (value!.isEmpty) {
                             return "please Enter Your Email";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Email",
@@ -102,6 +104,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
                           if (value!.isEmpty) {
                             return "Please Enter A Valid password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -125,6 +128,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
                           if (value!.isEmpty) {
                             return "Please Enter The Same password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
