@@ -27,7 +27,7 @@ class _UserDataScreensState extends State<UserDataScreens> {
   void dispose() {
     _userNameController.dispose();
     _confirmPaaswordController.dispose();
-    _confirmPaaswordController.dispose();
+    _confirmPaaswordController.dispose(); 
     _userEmailController.dispose();
     super.dispose();
   }
