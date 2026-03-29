@@ -1,0 +1,35 @@
+import 'package:expenz/utils/colors.dart';
+import 'package:flutter/material.dart';
+
+enum incomeCategory{
+  freelance,
+  salary,
+  passive,
+  sales, 
+}
+//category images
+final Map<incomeCategory,String>incomecategoryImage={
+  incomeCategory.freelance:"assets/images/freelance.png",
+  incomeCategory.salary:"assets/images/salary.png",
+  incomeCategory.sales:"assets/images/salary.png",
+  incomeCategory.passive:"assets/images/salary.png",
+};
+
+//category colors
+final Map<incomeCategory,Color>incomeCategoryColor={
+  incomeCategory.freelance:kBlack,
+  incomeCategory.salary:kGreen,
+  incomeCategory.sales:kGreen,
+  incomeCategory.passive:kBlack,
+};
+
+class IncomeModel{
+  final int id;
+  final String Title;
+  final incomeCategory category;
+  final DateTime date;
+  final DateTime time;
+  final String Description;
+
+  IncomeModel({required this.id, required this.Title, required this.category, required this.date, required this.time, required this.Description});
+}

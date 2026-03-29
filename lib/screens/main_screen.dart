@@ -14,13 +14,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentPageIndex=0;
+  int _currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
+      AddNewPage(),
       HomePage(),
       TransactionsPage(),
-      AddNewPage(),
       BudgetPage(),
       ProfilePage(),
     ];
@@ -33,9 +33,8 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentPageIndex,
         onTap: (index) {
           setState(() {
-             _currentPageIndex=index;
+            _currentPageIndex = index;
           });
-          
         },
 
         items: [
