@@ -27,7 +27,7 @@ class ExpenseServices {
       //add the new expense to the list
       existingExpenseObjects.add(expense);
 
-      //convert the list of expense objects back to a list oof strings
+      //convert the list of expense objects back to a list of strings
       List<String> updatedExpenses = existingExpenseObjects
           .map((e) => json.encode(e.tojson()))
           .toList();
