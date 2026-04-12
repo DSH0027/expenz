@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:expenz/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,5 +69,46 @@ class ExpenseServices {
     }
 
     return loadedExpenses;
+  }
+
+  //delete the expense from shaed preferences from id
+  Future<void> deleteExpenses(int id, BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      List<String>? exsistingExpenses = pref.getStringList(_expenseKey);
+
+      List<ExpenseModel> existingExpenseObjects = [];
+      if (exsistingExpenses != null) {
+        existingExpenseObjects = exsistingExpenses
+            .map((e) => ExpenseModel.fromJSON(json.decode(e)))
+            .toList();
+      }
+
+      existingExpenseObjects.removeWhere((expens) => expens.id == id);
+
+      List<String> updatedExpenses = existingExpenseObjects
+          .map((e) => json.encode(e.tojson()))
+          .toList();
+
+      await pref.setStringList(_expenseKey, updatedExpenses);
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Expense deleted successfully"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Error deleting expense"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }

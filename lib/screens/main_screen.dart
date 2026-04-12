@@ -26,7 +26,6 @@ class _MainScreenState extends State<MainScreen> {
     List<ExpenseModel> loadedExpenses = await ExpenseServices().loadExpenses();
     setState(() {
       expenceList = loadedExpenses;
-      
     });
   }
 
@@ -35,7 +34,6 @@ class _MainScreenState extends State<MainScreen> {
     List<IncomeModel> loadedIncome = await IncomeServices().loadIncome();
     setState(() {
       incomeList = loadedIncome;
-      
     });
   }
 
@@ -46,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
     //update the list of expenses
     setState(() {
       expenceList.add(newExpense);
-       print(expenceList.length);
     });
   }
 
@@ -57,7 +54,6 @@ class _MainScreenState extends State<MainScreen> {
     //update the list of income
     setState(() {
       incomeList.add(newIncome);
-      print(incomeList.length);
     });
   }
 
@@ -70,12 +66,21 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
+  //function to remove a expense
+  void removeExpense(ExpenseModel expense){
+    ExpenseServices().deleteExpenses(expense.id, context);
+    setState(() {
+      expenceList.remove(expense);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
+      TransactionsPage(expenceList: expenceList,onDismisedExpense: removeExpense,),
       HomePage(),
-      TransactionsPage(),
-      AddNewPage(addExpense: addNewExpense,addIncome: addNewIncome,),
+
+      AddNewPage(addExpense: addNewExpense, addIncome: addNewIncome),
       BudgetPage(),
       ProfilePage(),
     ];
