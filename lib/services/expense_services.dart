@@ -71,7 +71,7 @@ class ExpenseServices {
     return loadedExpenses;
   }
 
-  //delete the expense from shaed preferences from id
+  //delete the expense from shared preferences from id
   Future<void> deleteExpenses(int id, BuildContext context) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
