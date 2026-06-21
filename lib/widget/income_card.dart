@@ -1,4 +1,3 @@
-import 'package:expenz/models/expense_model.dart';
 import 'package:expenz/models/income_model.dart';
 import 'package:expenz/utils/colors.dart';
 
@@ -65,20 +64,30 @@ class IncomeCard extends StatelessWidget {
             children: [
               Text(Title, style: TextStyle(fontSize: 18, fontWeight: .w500)),
               SizedBox(
-                width: MediaQuery.of(context).size.width*0.4,
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: Text(
                   description,
-                  style: TextStyle(color: kGrey, fontSize: 13, fontWeight: .w500),
+                  style: TextStyle(
+                    color: kGrey,
+                    fontSize: 13,
+                    fontWeight: .w500,
+                  ),
                 ),
               ),
-              
             ],
           ),
           Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("+${amount.toStringAsFixed(2)}", style: TextStyle(fontSize: 18, fontWeight: .bold,color: kGreen)),
+              Text(
+                "+${amount.toStringAsFixed(2)}",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: .bold,
+                  color: kGreen,
+                ),
+              ),
               Text(
                 DateFormat.jm().format(date),
                 style: TextStyle(color: kGrey, fontSize: 13, fontWeight: .w500),

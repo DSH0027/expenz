@@ -53,4 +53,12 @@ class UserServices {
     return {"username":userName!,"email":email!};
   }
 
+  static Future <void> clearUserData ()async{
+    SharedPreferences pre= await SharedPreferences.getInstance();
+
+    await pre.remove("username");
+    await pre.remove("email");
+    
+  }
+
 }

@@ -116,6 +116,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
+       
       
       HomePage(
         expenceList: expenceList,
@@ -132,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
       BudgetPage(expenseTotal: calculateExpenseCategories(),
       incomeTotal: calculateIncomeCategories(),),
       
-      ProfilePage(),
+     ProfilePage(),
     ];
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(

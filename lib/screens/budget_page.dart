@@ -1,19 +1,20 @@
-import 'dart:ffi';
-
 import 'package:expenz/models/expense_model.dart';
 import 'package:expenz/models/income_model.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widget/category_card.dart';
 import 'package:expenz/widget/pie_chart.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
 class BudgetPage extends StatefulWidget {
-  final Map<expensecategory,double>expenseTotal;
-  final Map<incomeCategory,double>incomeTotal;
-  const BudgetPage({super.key, required this.expenseTotal, required this.incomeTotal});
+  final Map<expensecategory, double> expenseTotal;
+  final Map<incomeCategory, double> incomeTotal;
+  const BudgetPage({
+    super.key,
+    required this.expenseTotal,
+    required this.incomeTotal,
+  });
 
   @override
   State<BudgetPage> createState() => _BudgetPageState();
@@ -23,20 +24,19 @@ class _BudgetPageState extends State<BudgetPage> {
   int _selectedOption = 0;
 
   //methode to find the category color from the category
-  Color getcategoryColor(dynamic category){
-    if (category is expensecategory){
+  Color getcategoryColor(dynamic category) {
+    if (category is expensecategory) {
       return expenseCategoryColor[category]!;
-    }else{
+    } else {
       return incomeCategoryColor[category]!;
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
-    final data = _selectedOption==0?widget.expenseTotal:widget.incomeTotal;
+    final data = _selectedOption == 0
+        ? widget.expenseTotal
+        : widget.incomeTotal;
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -111,27 +111,38 @@ class _BudgetPageState extends State<BudgetPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
               //pie chart
-             Chart(expeneseCategoryTotal: widget.expenseTotal,
-             incomeCategoryTotal: widget.incomeTotal,
-             isExpense: _selectedOption==0,),
-             SizedBox(height: 20,),
-             //list of categories
-             SizedBox(height: MediaQuery.of(context).size.height*0.3,
-             child:ListView.builder(
-              scrollDirection: Axis.vertical,
-             
-              shrinkWrap: true,
-              itemCount:data.length ,
-              
-              itemBuilder: (context, index) {
-                final categories=data.keys.toList()[index];
-                final total=data.values.toList()[index];
-                return CategoryCard(title:categories.name , amount:total , total: data.values.reduce((Value,Element)=>Value+Element), prograssColor: getcategoryColor(categories), isExpense: _selectedOption==0,);
-               
-             },) ,)
+              Chart(
+                expeneseCategoryTotal: widget.expenseTotal,
+                incomeCategoryTotal: widget.incomeTotal,
+                isExpense: _selectedOption == 0,
+              ),
+              SizedBox(height: 20),
+              //list of categories
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
 
+                  shrinkWrap: true,
+                  itemCount: data.length,
+
+                  itemBuilder: (context, index) {
+                    final categories = data.keys.toList()[index];
+                    final total = data.values.toList()[index];
+                    return CategoryCard(
+                      title: categories.name,
+                      amount: total,
+                      total: data.values.reduce(
+                        (Value, Element) => Value + Element,
+                      ),
+                      prograssColor: getcategoryColor(categories),
+                      isExpense: _selectedOption == 0,
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
