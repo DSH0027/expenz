@@ -27,6 +27,10 @@ class _AddNewPageState extends State<AddNewPage> {
 
   DateTime _selectedDate = DateTime.now();
   DateTime _selectedTime = DateTime.now();
+
+  final _formKey=GlobalKey<FormState>();
+
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -164,7 +168,7 @@ class _AddNewPageState extends State<AddNewPage> {
 
                 // creating user input form
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.27,
                   ),
@@ -178,6 +182,7 @@ class _AddNewPageState extends State<AddNewPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           //category selected dropdown
@@ -217,6 +222,11 @@ class _AddNewPageState extends State<AddNewPage> {
                           SizedBox(height: 13),
                           TextFormField(
                             controller: _titleController,
+                            validator: (value) {
+                              if(value!.isEmpty){
+                                return "please enter a Title";
+                              }
+                            },
                             decoration: InputDecoration(
                               hintText: "Title",
                               border: OutlineInputBorder(
@@ -231,6 +241,11 @@ class _AddNewPageState extends State<AddNewPage> {
                           SizedBox(height: 13),
                           TextFormField(
                             controller: _descriptionController,
+                             validator: (value) {
+                              if(value!.isEmpty){
+                                return "please enter a Description";
+                              }
+                            },
                             decoration: InputDecoration(
                               hintText: "Description",
                               border: OutlineInputBorder(
@@ -246,6 +261,17 @@ class _AddNewPageState extends State<AddNewPage> {
                           TextFormField(
                             controller: _amountController,
                             keyboardType: TextInputType.numberWithOptions(),
+                            validator: (value) {
+                              if (value!.isEmpty){
+                                return"please Enter a amount";
+                              }
+
+                              double?amount =double.tryParse(value);
+                              if(amount==null||amount<=0){
+                                return"please enter a valid number";
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                               hintText: "Amount",
                               border: OutlineInputBorder(
@@ -389,7 +415,8 @@ class _AddNewPageState extends State<AddNewPage> {
                           //submit button
                           GestureDetector(
                             onTap: () async {
-                              if (_selectedmethode == 0) {
+                              if (_formKey.currentState!.validate()){
+                                if (_selectedmethode == 0) {
                                 //save the expenses data into shared prefs
                                 List<ExpenseModel> loadedExpenses =
                                     await ExpenseServices().loadExpenses();
@@ -437,6 +464,9 @@ class _AddNewPageState extends State<AddNewPage> {
                                 _descriptionController.clear();
 
                               }
+
+                              }
+                              
                             },
 
                             child: CustomButton(
